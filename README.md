@@ -1,0 +1,1 @@
+# A simple Floating Screen Ruler to help the Pixel Perfect Development

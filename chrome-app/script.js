@@ -1,6 +1,14 @@
 window.addEventListener('resize', setWindowSize);
+document.onkeydown = KeyPress;
+
+window.addEventListener("wheel", function(event){
+  console.log(event)
+});
+
 var wh = document.getElementById('width'),
-    ht = document.getElementById('height');
+    ht = document.getElementById('height'),
+    rule = document.getElementById('rule'),
+    zoom = 1;
 
 function setWindowSize() {
   if (typeof (window.innerWidth) == 'number') {
@@ -17,8 +25,29 @@ function setWindowSize() {
       }
     }
   }
-  wh.innerHTML = myWidth;
-  ht.innerHTML = myHeight;
+  wh.innerHTML = myWidth * zoom;
+  ht.innerHTML = myHeight * zoom;
+  setRuleSize();
+}
+
+function setRuleSize(){
+  rule.style.transform = `scale(${1/zoom})`;
+}
+
+
+function KeyPress(e) {
+      var evtobj = window.event? event : e
+      if (evtobj.keyCode == 90 && evtobj.ctrlKey) getZoom();;
+}
+
+
+function getZoom(){
+  var zoomValue = parseInt(window.prompt('Enter a zoom value in %', 100));
+  if(isNaN(zoomValue)){
+    zoomValue = 100;
+  }
+  zoom = zoomValue/100;
+  setWindowSize();
 }
 
 document.getElementById("pmx-btn-close").onclick = function() {
